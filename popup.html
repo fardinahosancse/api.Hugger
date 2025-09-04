@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
+  <title>api.Hugger</title>
+  <link rel="stylesheet" href="styles.css">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Round" rel="stylesheet">
+</head>
+<body>
+  <div class="container">
+    <header>
+<div class="logo-container">
+  <h1>api<span class="hugger">.Hugger</span></h1>
+  <button id="info-button" class="info-button" title="About">
+    <span class="material-icons-round">info</span>
+  </button>
+</div>
+      <div class="search-sort-container">
+        <div class="search-container">
+          <input type="text" id="search-input" placeholder="Search">
+          <span class="material-icons-round search-icon">manage_search</span>
+        </div>
+        <div class="sort-container">
+          <select id="sort-select">
+            <option value="vendor-asc">A to Z</option>
+            <option value="vendor-desc">Z to A</option>
+            <option value="tag" class="tag-option">Sort by Tag ▾</option>
+            <option value="date-desc">Newest First</option>
+            <option value="date-asc">Oldest First</option>
+            <!-- Tag options will be added here dynamically with class="tag-item" -->
+          </select>
+        </div>
+      </div>
+    </header>
+
+    <main>
+      <div class="bulk-actions">
+        <div class="select-all-container">
+          <input type="checkbox" id="select-all">
+          <label for="select-all">Select All</label>
+        </div>
+        <div class="bulk-buttons">
+          <button id="delete-selected" class="bulk-button icon-only" disabled title="Delete selected">
+            <span class="material-icons-round">delete_outline</span>
+          </button>
+          <button id="export-selected" class="bulk-button icon-only" disabled title="Export selected">
+            <span class="material-icons-round">cloud_download</span>
+          </button>
+          <button id="import-json" class="bulk-button icon-only" title="Import JSON">
+            <span class="material-icons-round">cloud_upload</span>
+          </button>
+        </div>
+      </div>
+
+      <div id="api-list" class="api-list">
+        <!-- Empty state message -->
+        <div id="empty-state" class="empty-state">
+          <div class="empty-state-content">
+            <span class="material-icons-round empty-icon">api</span>
+            <h2>No APIs Added Yet</h2>
+            <p>Add your first API key to get started</p>
+          </div>
+        </div>
+
+        <!-- API items will be dynamically added here -->
+      </div>
+    </main>
+
+    <button id="add-api-button" class="floating-button">
+      <span class="material-icons-round">add</span>
+    </button>
+  </div>
+
+  <!-- Modal for adding/editing API -->
+  <div id="add-api-modal" class="modal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h2 id="modal-title">Add New API</h2>
+        <button class="close-button">
+          <span class="material-icons-round">close</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form id="add-api-form">
+          <input type="hidden" id="edit-id" name="editId">
+          <div class="form-group">
+            <label for="vendor">Vendor</label>
+            <input type="text" id="vendor" name="vendor" required>
+          </div>
+          <div class="form-group">
+            <label for="account">Account</label>
+            <input type="text" id="account" name="account" required>
+          </div>
+          <div class="form-group">
+            <label for="api-key">API Key</label>
+            <input type="text" id="api-key" name="apiKey" required>
+          </div>
+          <div class="form-group">
+            <label for="tag">Tags (comma separated)</label>
+            <input type="text" id="tag" name="tag" required placeholder="development, production, etc">
+          </div>
+          <div class="form-actions">
+            <button type="button" id="cancel-button" class="cancel-button">Cancel</button>
+            <button type="submit" class="save-button">Save</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- Toast notification removed as per requirements -->
+
+  <!-- Info Modal -->
+  <div id="info-modal" class="modal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h2>About api.Hugger</h2>
+        <button class="close-button" id="info-close-button">
+          <span class="material-icons-round">close</span>
+        </button>
+      </div>
+      <div class="modal-body info-modal-body">
+        <div class="info-section">
+          <p><strong>Version:</strong> 0.001</p>
+          <p><strong>Developer:</strong> Fardin Ahosan</p>
+          <p><strong>License:</strong> MIT</p>
+        </div>
+        <div class="info-section">
+          <p>api.Hugger is an open-source project for managing API keys securely in your browser.</p>
+          <p>Visit our GitHub repository for more information:</p>
+          <a href="https://github.com/yourusername/api-hugger" target="_blank" class="github-link">
+            <span class="material-icons-round">code</span>
+            GitHub Repository
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="popup.js"></script>
+</body>
+</html>
