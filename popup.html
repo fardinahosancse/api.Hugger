@@ -23,14 +23,24 @@
           <span class="material-icons-round search-icon">manage_search</span>
         </div>
         <div class="sort-container">
-          <select id="sort-select">
-            <option value="vendor-asc">A to Z</option>
-            <option value="vendor-desc">Z to A</option>
-            <option value="tag" class="tag-option">Sort by Tag ▾</option>
-            <option value="date-desc">Newest First</option>
-            <option value="date-asc">Oldest First</option>
-            <!-- Tag options will be added here dynamically with class="tag-item" -->
-          </select>
+          <div class="custom-dropdown" id="sort-dropdown">
+            <div class="dropdown-trigger" id="sort-trigger">
+              <span class="dropdown-text">A to Z</span>
+              <span class="material-icons-round dropdown-arrow">keyboard_arrow_down</span>
+            </div>
+            <div class="dropdown-menu" id="sort-menu">
+              <div class="dropdown-item" data-value="vendor-asc">A to Z</div>
+              <div class="dropdown-item" data-value="vendor-desc">Z to A</div>
+              <div class="dropdown-separator"></div>
+              <div class="dropdown-item tag-header" data-value="tag">Sort by Tag</div>
+              <div class="tag-items-container" id="tag-items-container">
+                <!-- Tag options will be added here dynamically -->
+              </div>
+              <div class="dropdown-separator"></div>
+              <div class="dropdown-item" data-value="date-desc">Newest First</div>
+              <div class="dropdown-item" data-value="date-asc">Oldest First</div>
+            </div>
+          </div>
         </div>
       </div>
     </header>
@@ -42,14 +52,14 @@
           <label for="select-all">Select All</label>
         </div>
         <div class="bulk-buttons">
-          <button id="delete-selected" class="bulk-button icon-only" disabled title="Delete selected">
-            <span class="material-icons-round">delete_outline</span>
+          <button id="delete-selected" class="bulk-button icon-only minimal-icon" disabled title="Delete selected">
+            <span class="material-icons-round">delete</span>
           </button>
-          <button id="export-selected" class="bulk-button icon-only" disabled title="Export selected">
-            <span class="material-icons-round">cloud_download</span>
+          <button id="export-selected" class="bulk-button icon-only minimal-icon" disabled title="Export selected">
+            <span class="material-icons-round">download</span>
           </button>
-          <button id="import-json" class="bulk-button icon-only" title="Import JSON">
-            <span class="material-icons-round">cloud_upload</span>
+          <button id="import-json" class="bulk-button icon-only minimal-icon" title="Import JSON">
+            <span class="material-icons-round">upload</span>
           </button>
         </div>
       </div>
@@ -85,22 +95,45 @@
       <div class="modal-body">
         <form id="add-api-form">
           <input type="hidden" id="edit-id" name="editId">
+          
           <div class="form-group">
             <label for="vendor">Vendor</label>
             <input type="text" id="vendor" name="vendor" required>
           </div>
+          
           <div class="form-group">
             <label for="account">Account</label>
             <input type="text" id="account" name="account" required>
           </div>
+          
           <div class="form-group">
             <label for="api-key">API Key</label>
             <input type="text" id="api-key" name="apiKey" required>
           </div>
+          
           <div class="form-group">
             <label for="tag">Tags (comma separated)</label>
             <input type="text" id="tag" name="tag" required placeholder="development, production, etc">
           </div>
+          
+          <div class="import-json-container">
+            <button type="button" id="import-json-modal" class="import-json-button">
+              <span class="material-icons-round">upload_file</span>
+              Import from JSON
+            </button>
+          </div>
+          
+          <div id="custom-fields-container" class="custom-fields-container">
+            <!-- Custom fields will be added here dynamically -->
+          </div>
+          
+          <div class="form-group add-field-container">
+            <button type="button" id="add-field-button" class="add-field-button">
+              <span class="material-icons-round">add</span>
+              Add Custom Field
+            </button>
+          </div>
+          
           <div class="form-actions">
             <button type="button" id="cancel-button" class="cancel-button">Cancel</button>
             <button type="submit" class="save-button">Save</button>
@@ -123,10 +156,40 @@
       </div>
       <div class="modal-body info-modal-body">
         <div class="info-section">
-          <p><strong>Version:</strong> 0.001</p>
+          <p><strong>Version:</strong> 1.1.0</p>
           <p><strong>Developer:</strong> S.M.Fardin Ahosan</p>
           <p><strong>License:</strong> MIT</p>
         </div>
+        
+        <div class="info-section version-changes">
+          <h3>Version Changes</h3>
+          <div class="changelog">
+            <div class="version-entry">
+               <h4>v1.1.0 - Latest</h4>
+               <ul>
+                 <li>Added Custom JSON Importer for bulk API key management</li>
+                 <li>Complete UI redesign with modern gradient styling</li>
+                 <li>Fixed modal overflow and underflow layout issues</li>
+                 <li>Enhanced form input fields with focus animations</li>
+                 <li>Improved responsive design for better mobile experience</li>
+                 <li>Added dynamic field management with pin functionality</li>
+                 <li>Implemented advanced search and filtering capabilities</li>
+                  <li>And a lot more...</li>
+               </ul>
+             </div>
+            <div class="version-entry">
+              <h4>v1.0.0</h4>
+              <ul>
+                <li>Initial release of api.Hugger</li>
+                <li>Core API key management functionality</li>
+                <li>Secure local storage implementation</li>
+                <li>Basic CRUD operations for API keys</li>
+                <li>Tag-based organization system</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+        
         <div class="info-section">
           <p>api.Hugger is an open-source project for managing API keys securely in your browser.</p>
           <p>Visit our GitHub repository for more information:</p>
@@ -135,6 +198,21 @@
             GitHub Repository
           </a>
         </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Full Information Modal -->
+  <div id="full-info-modal" class="modal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h2>API Details</h2>
+        <button class="close-button" id="full-info-close-button">
+          <span class="material-icons-round">close</span>
+        </button>
+      </div>
+      <div class="modal-body full-info-modal-body">
+        <!-- Content will be dynamically populated -->
       </div>
     </div>
   </div>
