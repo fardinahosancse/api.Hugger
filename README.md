@@ -2,6 +2,8 @@
 
 **A Modern, Secure API Key Management Extension**
 
+![Home Screenshot](ss/Home.png)
+
 api.Hugger is a powerful Chrome extension designed to help developers and API enthusiasts securely store, organize, and manage their API keys with an intuitive and modern interface.
 
 ![Version](https://img.shields.io/badge/version-1.1.0-blue.svg)
