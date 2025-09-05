@@ -4,7 +4,7 @@
 
 api.Hugger is a powerful Chrome extension designed to help developers and API enthusiasts securely store, organize, and manage their API keys with an intuitive and modern interface.
 
-![Version](https://img.shields.io/badge/version-1.0-blue.svg)
+![Version](https://img.shields.io/badge/version-1.1.0-blue.svg)
 ![License](https://img.shields.io/badge/license-MIT-green.svg)
 ![Chrome Extension](https://img.shields.io/badge/platform-Chrome%20Extension-yellow.svg)
 
